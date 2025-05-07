@@ -1,0 +1,41 @@
+﻿/* BEM-style naming convention */
+.figure {
+    display: inline-block;
+    width: 150px;
+    margin: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.figure__image {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(3px 3px 10px black) grayscale(1);
+    transition: filter 2s ease;
+}
+
+.figure__caption {
+    font-size: 0px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: font-size 2s ease;
+}
+
+/* Layout for the "wall" section, using flexbox */
+#wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* BEM-style layout class for mobile */
+@media (max-width: 768px) {
+    .figure {
+        width: 100px;
+    }
+    .figure__image {
+        width: 100%;
+    }
+}

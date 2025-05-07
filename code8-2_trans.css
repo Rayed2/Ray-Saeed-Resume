@@ -1,0 +1,43 @@
+﻿@charset "utf-8";
+
+/* Global figure styles */
+figure {
+   display: inline-block; /* Makes the figure elements inline */
+   width: 150px;
+   margin: 20px;
+   text-align: center;
+   cursor: pointer;
+}
+
+figure img {
+   display: block;
+   width: 100%;
+   filter: drop-shadow(3px 3px 10px black) grayscale(1);
+   transition: filter 2s ease;
+}
+
+figure figcaption {
+   font-size: 0px;
+   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif";
+   background-color: rgba(255, 255, 255, 0.7);
+   transition: font-size 2s ease;
+}
+
+/* Layout for the "wall" section, using flexbox */
+#wall {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+   gap: 20px; /* Adds space between figures */
+   padding: 20px;
+}
+
+/* Responsive styling (make the figures smaller on mobile) */
+@media (max-width: 768px) {
+   figure {
+      width: 100px;
+   }
+   figure img {
+      width: 100%;
+   }
+}

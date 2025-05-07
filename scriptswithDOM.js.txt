@@ -1,0 +1,136 @@
+"use strict";  // Enabling strict mode to catch potential errors
+//Using DOM Methods
+// Select all the figure elements 
+const figures = document.querySelectorAll('figure');
+
+// Loop through each figure to add event listeners for hover effects
+figures.forEach(figure => {
+   const img = figure.querySelector('img');
+   const caption = figure.querySelector('figcaption');
+
+   // Hover in (mouseenter)
+   figure.addEventListener('mouseenter', () => {
+      figure.style.transform = "scale(1.2)"; // Scale the figure
+      figure.style.zIndex = "2"; // Bring to the front
+
+      img.style.filter = "drop-shadow(10px 10px 20px black) grayscale(0)"; // Adjust image filter
+      caption.style.fontSize = "1.2em"; // Increase font size of the caption
+   });
+
+   // Hover out (mouseleave)
+   figure.addEventListener('mouseleave', () => {
+      figure.style.transform = "scale(1)"; // Reset figure size
+      figure.style.zIndex = "1"; // Reset z-index
+
+      img.style.filter = "drop-shadow(3px 3px 10px black) grayscale(1)"; // Reset image filter
+      caption.style.fontSize = "0px"; // Reset font size of the caption
+   });
+});
+
+// Replaced old `document.write()` with DOM node methods for the news bar
+function createNewsBar() {
+  const form = document.createElement('form');
+  form.name = "news_bar";
+
+  // Create Previous button
+  const prevButton = document.createElement('input');
+  prevButton.type = "button";
+  prevButton.value = "Previous";
+  prevButton.className = "scrollerstyle";
+  prevButton.style.width = "22px";
+  prevButton.style.height = "22px";
+  prevButton.style.borderRightWidth = "0px";
+  prevButton.title = "Previous News";
+
+  // Create News bar button
+  const newsBarButton = document.createElement('input');
+  newsBarButton.type = "button";
+  newsBarButton.name = "news_bar_but";
+  newsBarButton.className = "scrollerstyle";
+  newsBarButton.style.background = "#FFFFFF";
+  newsBarButton.style.color = "#000000";
+  newsBarButton.style.width = "350px";
+  newsBarButton.style.height = "22px";
+  newsBarButton.style.borderWidth = "1px";
+  newsBarButton.style.borderColor = "#000000";
+  newsBarButton.style.cursor = "pointer";
+  
+  // Create Next button
+  const nextButton = document.createElement('input');
+  nextButton.type = "button";
+  nextButton.value = "Next";
+  nextButton.className = "scrollerstyle";
+  nextButton.style.width = "22px";
+  nextButton.style.height = "22px";
+  nextButton.style.borderLeftWidth = "0px";
+  nextButton.title = "Next News";
+
+  // Append buttons to the form
+  form.appendChild(prevButton);
+  form.appendChild(newsBarButton);
+  form.appendChild(nextButton);
+
+  // Append the form to the body or a specific container
+  document.body.appendChild(form);
+}
+
+// Function to initialize the news bar
+function initNewsBar() {
+  const newsMessages = [
+    "New Look for JavaScripts.com",
+    "The most up-to-date ASP source",
+    "CNN latest headlines!",
+    "Wired News - Technology and beyond",
+    "Newest Java News at Gamelan"
+  ];
+
+  const newsUrls = [
+    "http://www.javascripts.com",
+    "http://www.ASPNews.com",
+    "http://www.cnn.com",
+    "http://www.wired.com",
+    "http://www.gamelan.com"
+  ];
+
+  let count = 0;
+  
+  // Update the news bar content
+  function updateNewsBar() {
+    const newsBarButton = document.querySelector('[name="news_bar_but"]');
+    if (newsBarButton) {
+      newsBarButton.value = newsMessages[count];
+    }
+  }
+
+  // Move to next or previous message
+  function moveNewsBar(direction) {
+    if (direction === 1) {
+      count = (count < newsMessages.length - 1) ? count + 1 : 0;
+    } else {
+      count = (count === 0) ? newsMessages.length - 1 : count - 1;
+    }
+    updateNewsBar();
+  }
+
+  // Automatically cycle through the news
+  setInterval(() => {
+    moveNewsBar(1);
+  }, 3000);
+
+  // Function to navigate to the news link when clicked
+  function goToUrl() {
+    location.href = newsUrls[count];
+  }
+
+  // Initialize the news bar with the first message
+  updateNewsBar();
+
+  // Optionally, attach event listeners for buttons
+  document.querySelector('[name="news_bar_but"]').addEventListener('click', goToUrl);
+  document.querySelector('[value="Previous"]').addEventListener('click', () => moveNewsBar(0));
+  document.querySelector('[value="Next"]').addEventListener('click', () => moveNewsBar(1));
+}
+
+// Call the function to create and initialize the news bar
+createNewsBar();
+initNewsBar();
